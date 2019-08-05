@@ -15,7 +15,7 @@ Now, you'll want a local copy of this repo by running:
 ## Deploy
 The TF templates here can be deployed by running the following commands:
 ```
-cd oci-quickstart-scylladb/simple
+cd oci-quickstart-scylladb/terraform
 terraform init
 terraform plan
 terraform apply # will prompt to continue
