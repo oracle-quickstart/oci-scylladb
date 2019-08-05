@@ -1,6 +1,6 @@
 # oci-quickstart-scylladb
 
-This is a Terraform module that deploys [Kinetica](https://www.scylladb.com/) on [Oracle Cloud Infrastructure (OCI)](https://cloud.oracle.com/en_US/cloud-infrastructure).  It is developed jointly by Oracle and ScyllaDB.
+This is a Terraform module that deploys [ScyllaDB](https://www.scylladb.com/) on [Oracle Cloud Infrastructure (OCI)](https://cloud.oracle.com/en_US/cloud-infrastructure).  It is developed jointly by Oracle and ScyllaDB.
 
 This repo is under active development.  Building open source software is a community effort.  We're excited to engage with the community building this.
 
