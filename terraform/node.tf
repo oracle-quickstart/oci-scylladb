@@ -53,11 +53,3 @@ output "node server public IPs" {
 output "node server private IPs" {
   value = "${join(",", oci_core_instance.node.*.private_ip)}"
 }
-
-output "GAdmin URL" {
-  value = "http://${oci_core_instance.node.0.public_ip}:8080"
-}
-
-output "Reveal URL" {
-  value = "http://${oci_core_instance.node.0.public_ip}:8088"
-}
