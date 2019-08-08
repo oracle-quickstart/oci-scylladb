@@ -34,7 +34,7 @@ for n in `seq 1 $((seed_count-1))`; do
 done
 
 dc_name="mydc"
-rack="FD0"
+rack=$faultdomain
 
 echo "Setup $CONF ..."
 cat $CONF | \

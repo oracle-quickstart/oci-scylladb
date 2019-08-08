@@ -8,6 +8,7 @@ resource "oci_core_instance" "node" {
   display_name        = "scylladb-node-${count.index}"
   compartment_id      = "${var.compartment_ocid}"
   availability_domain = "${lookup(data.oci_identity_availability_domains.availability_domains.availability_domains[var.ad_number],"name")}"
+  fault_domain        = "FAULT-DOMAIN-${(count.index%3)+1}"
   shape               = "${var.shape}"
   subnet_id           = "${oci_core_subnet.subnet.id}"
 
