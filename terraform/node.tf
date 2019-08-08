@@ -34,6 +34,7 @@ resource "oci_core_instance" "node" {
 
   extended_metadata {
     license_key = "${var.license_key}"
+
     config = "${jsonencode(map(
       "shape", var.shape,
       "disk_count", var.disk_count,

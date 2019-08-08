@@ -24,35 +24,34 @@ variable "ssh_private_key" {}
 # ---------------------------------------------------------------------------------------------------------------------
 
 variable "license_key" {
-  type = "string"
+  type    = "string"
   default = ""
 }
 
 variable "shape" {
-  default = "VM.Standard2.4"
+  default     = "VM.Standard2.4"
   description = "Instance shape to deploy for each node."
 }
 
 variable "node_count" {
-  default = "3"
+  default     = "3"
   description = "Number of nodes to deploy."
 }
 
 variable "ad_number" {
-  default = 2
+  default     = 2
   description = "Which availability domain to deploy to depending on quota, zero based."
 }
 
 variable "disk_size" {
-  default = 500
+  default     = 500
   description = "Size of block volume in GB for data, min 50. If set to 0 volume will not be created/mounted."
 }
 
 variable "disk_count" {
-  default = 0
+  default     = 0
   description = "Number of disks to create for each node. Multiple disks will create a RAID0 array."
 }
-
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Network variables
@@ -93,19 +92,19 @@ variable "images" {
   type = "map"
 
   default = {
-    ap-seoul-1-gpu =	"ocid1.image.oc1.ap-seoul-1.aaaaaaaaekhzdpa2oibo4cgh4whp54gv3sh5y277k7ykqvzcmm7f7xuujf7q"
-    ap-tokyo-1-gpu =	"ocid1.image.oc1.ap-tokyo-1.aaaaaaaaqgxuylamck3u4z43lqhcjmk63mgmwle2kuxn7urcvs3zernbmidq"
-    ca-toronto-1-gpu =	"ocid1.image.oc1.ca-toronto-1.aaaaaaaaao3hzbyh3nlcif672hnkarlbmaqk47woffzcgrlgt6xg5iffoy3a"
-    eu-frankfurt-1-gpu = 	"ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaeaa5m5ioxbrb3dstql2kzcuspidcvimey2lswpn5vasyxvoqpvxa"
-    uk-london-1-gpu =	"ocid1.image.oc1.uk-london-1.aaaaaaaapsbpob5y3hodz2l2izyhluolrapfm2p66rzv4a2seqcehjjdgteq"
-    us-ashburn-1-gpu =	"ocid1.image.oc1.iad.aaaaaaaaklskal5ezaay6imvl6iwzcelke5uavkt5smpla7o45g5xmcmv2da"
-    us-phoenix-1-gpu =	"ocid1.image.oc1.phx.aaaaaaaal4eq2dujwuefgqxoz76jlxxtebyy6rtql7lopvkbp4z5j3ydut3q"
-    ap-seoul-1 =	"ocid1.image.oc1.ap-seoul-1.aaaaaaaa6mmih5n72yviujadzfkzthjwyc3h5uvaeejc3kpalhyakk6tfejq"
-    ap-tokyo-1 =	"ocid1.image.oc1.ap-tokyo-1.aaaaaaaayxjigcwqiqjncbkm7yxppjqfzsjnbvtjsemrvnwrtpwynausossa"
-    ca-toronto-1 =	"ocid1.image.oc1.ca-toronto-1.aaaaaaaabmpm76byqi5nisxblvh4gtfvfxbnyo4vmoqfvpldggellgrv4eiq"
-    eu-frankfurt-1 =	"ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaijslwo4cd3xhcledgwglqwjem3te4q3szekfm37hoo3wf2tm6u5a"
-    uk-london-1 =	"ocid1.image.oc1.uk-london-1.aaaaaaaa66i5ug2lc6ywq6j2y4e535vgzsgb7pwn6blv2bw5a2wb2gbo5wfa"
-    us-ashburn-1 =	"ocid1.image.oc1.iad.aaaaaaaaj6pcmnh6y3hdi3ibyxhhflvp3mj2qad4nspojrnxc6pzgn2w3k5q"
-    us-phoenix-1 =	"ocid1.image.oc1.phx.aaaaaaaa2wadtmv6j6zboncfobau7fracahvweue6dqipmcd5yj6s54f3wpq"
+    ap-seoul-1-gpu     = "ocid1.image.oc1.ap-seoul-1.aaaaaaaaekhzdpa2oibo4cgh4whp54gv3sh5y277k7ykqvzcmm7f7xuujf7q"
+    ap-tokyo-1-gpu     = "ocid1.image.oc1.ap-tokyo-1.aaaaaaaaqgxuylamck3u4z43lqhcjmk63mgmwle2kuxn7urcvs3zernbmidq"
+    ca-toronto-1-gpu   = "ocid1.image.oc1.ca-toronto-1.aaaaaaaaao3hzbyh3nlcif672hnkarlbmaqk47woffzcgrlgt6xg5iffoy3a"
+    eu-frankfurt-1-gpu = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaeaa5m5ioxbrb3dstql2kzcuspidcvimey2lswpn5vasyxvoqpvxa"
+    uk-london-1-gpu    = "ocid1.image.oc1.uk-london-1.aaaaaaaapsbpob5y3hodz2l2izyhluolrapfm2p66rzv4a2seqcehjjdgteq"
+    us-ashburn-1-gpu   = "ocid1.image.oc1.iad.aaaaaaaaklskal5ezaay6imvl6iwzcelke5uavkt5smpla7o45g5xmcmv2da"
+    us-phoenix-1-gpu   = "ocid1.image.oc1.phx.aaaaaaaal4eq2dujwuefgqxoz76jlxxtebyy6rtql7lopvkbp4z5j3ydut3q"
+    ap-seoul-1         = "ocid1.image.oc1.ap-seoul-1.aaaaaaaa6mmih5n72yviujadzfkzthjwyc3h5uvaeejc3kpalhyakk6tfejq"
+    ap-tokyo-1         = "ocid1.image.oc1.ap-tokyo-1.aaaaaaaayxjigcwqiqjncbkm7yxppjqfzsjnbvtjsemrvnwrtpwynausossa"
+    ca-toronto-1       = "ocid1.image.oc1.ca-toronto-1.aaaaaaaabmpm76byqi5nisxblvh4gtfvfxbnyo4vmoqfvpldggellgrv4eiq"
+    eu-frankfurt-1     = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaaijslwo4cd3xhcledgwglqwjem3te4q3szekfm37hoo3wf2tm6u5a"
+    uk-london-1        = "ocid1.image.oc1.uk-london-1.aaaaaaaa66i5ug2lc6ywq6j2y4e535vgzsgb7pwn6blv2bw5a2wb2gbo5wfa"
+    us-ashburn-1       = "ocid1.image.oc1.iad.aaaaaaaaj6pcmnh6y3hdi3ibyxhhflvp3mj2qad4nspojrnxc6pzgn2w3k5q"
+    us-phoenix-1       = "ocid1.image.oc1.phx.aaaaaaaa2wadtmv6j6zboncfobau7fracahvweue6dqipmcd5yj6s54f3wpq"
   }
 }
