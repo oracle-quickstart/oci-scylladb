@@ -10,20 +10,53 @@ First off you'll need to do some pre deploy setup.  That's all detailed [here](h
 ## Clone the Module
 Now, you'll want a local copy of this repo by running:
 
-    git clone https://github.com/oracle/oci-quickstart-scylladb.git
+
+  git clone https://github.com/oracle/oci-quickstart-scylladb.git
+  cd oci-quickstart-scylladb/terraform/
+  ls
+
+
+That should give you this:
+
+![](./images/01-clone.png)
+
+We now need to initialize the directory with the module in it.  This makes the module aware of the OCI provider.  You can do this by running:
+
+    terraform init
+
+This gives the following output:
+
+![](./images/02-tf_init.png)
 
 ## Deploy
-The TF templates here can be deployed by running the following commands:
-```
-cd oci-quickstart-scylladb/terraform
-terraform init
-terraform plan
-terraform apply # will prompt to continue
-```
+Now for the main attraction.  Let's make sure the plan looks good:
 
-The output of `terraform apply` should look like:
-```
-Apply complete! Resources: 8 added, 0 changed, 0 destroyed.
+    terraform plan
 
-Outputs:
-```
+That gives:
+
+![](./images/03-tf_plan.png)
+
+If that's good, we can go ahead and apply the deploy:
+
+    terraform apply
+
+You'll need to enter `yes` when prompted.  The apply should take about seven minutes to run.  Once complete, you'll see something like this:
+
+![](./images/04-tf_apply.png)
+
+## Access the Cluster
+When the apply is complete, the infrastructure will be deployed, but cloud-init scripts will still be running.  Those will wrap up asynchronously.  So, it'll be a few more minutes before your cluster is accessible.
+
+The output of `terraform apply` gives you the IPs of all nodes. If you ssh into one of the nodes, you can run `nodetool status` to see the state of all cluster nodes or `cqlsh` to execute CQL commands:
+
+![](./images/05-ssh.png)
+
+## Destroy the Deployment
+When you no longer need the deployment, you can run this command to destroy it:
+
+    terraform destroy
+
+You'll need to enter `yes` when prompted.  Once complete, you'll see something like this:
+
+![](./images/06-tf_destroy.png)
