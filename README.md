@@ -47,7 +47,7 @@ If that's good, we can go ahead and apply the deploy:
 terraform apply
 ```
 
-You'll need to enter `yes` when prompted.  The apply should take about seven minutes to run.  Once complete, you'll see something like this:
+You'll need to enter `yes` when prompted.  The apply should take a few minutes to run.  Once complete, you'll see something like this:
 
 ![](./images/04-tf_apply.png)
 
