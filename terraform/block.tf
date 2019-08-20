@@ -9,7 +9,6 @@ resource "oci_core_volume" "NodeVolume" {
 resource "oci_core_volume_attachment" "NodeAttachment" {
   count           = "${var.node_count * var.disk_count}"
   attachment_type = "iscsi"
-  compartment_id  = "${var.compartment_ocid}"
   instance_id     = "${oci_core_instance.node.*.id[count.index]}"
   volume_id       = "${oci_core_volume.NodeVolume.*.id[count.index]}"
 }
