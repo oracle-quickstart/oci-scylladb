@@ -15,10 +15,11 @@ systemctl disable firewalld
 yum remove -y abrt
 # install epel
 yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+yum -y install epel-release wget
 # add repo
-curl -o /etc/yum.repos.d/scylla.repo -L http://repositories.scylladb.com/scylla/repo/972d2ab5-0c40-4576-aa49-824cc06cd24a/centos/scylladb-3.0.repo
+wget -O /etc/yum.repos.d/scylla.repo http://repositories.scylladb.com/scylla/repo/972d2ab5-0c40-4576-aa49-824cc06cd24a/centos/scylladb-2019.1.repo
 # install
-yum install -y scylla-3.0.9
+yum -y install scylla-enterprise
 
 # config files
 CONF="/etc/scylla/scylla.yaml"
@@ -52,13 +53,38 @@ echo "dc=$dc_name" >> $RACKDC
 echo "rack=$rack" >> $RACKDC
 echo "prefer_local=true" >> $RACKDC
 
-#
-#| sed -e "s:\(.*- \)/var/lib/cassandra/data.*:\1$data_file_directories:" \
-#| sed -e "s:.*\(commitlog_directory\:\).*:commitlog_directory\: $commitlog_directory:" \
-#| sed -e "s:.*\(saved_caches_directory\:\).*:saved_caches_directory\: $saved_caches_directory:" \
+# find all iscsi block volumes
+if [ $diskCount -gt 0 ]; then
+  disks=$(ls /dev/disk/by-path/ip-169.254*)
+  echo "Block devices found: $disks"
+fi
 
-echo "Call scylla_io_setup..."
-scylla_io_setup
+if [[ $shape == *"Dense"* ]]; then
+  echo "Running on Dense shape, ignoring any block volumes for local NVME..."
+  disks=$(ls /dev/nvme*n1)
+  echo "NVME found: $disks"
+fi
+
+nic=$(ip link show | awk -F":" '/ens/ { print $2 }' | tr -d ' ')
+
+if [ -z "$disk"]; then
+  echo "No block or nvme disks"
+  echo "Call scylla_setup with nic: $nic and --no-raid-setup"
+  scylla_setup \
+   --no-ec2-check \
+   --nic $nic \
+   --no-raid-setup
+else
+  #must resolve possible symlinks, trim trailing whitespace, make comma separated
+  disks=$(realpath $disks | tr '\n' ' ' | awk '{$1=$1;print}' | tr ' ' ',')
+  echo "Call scylla_setup with nic: $nic and disks: $disks"
+  scylla_setup \
+   --no-ec2-check \
+   --nic $nic \
+   --disks $disks
+fi
+
+
 echo "Enable and start scylla-server..."
 systemctl enable scylla-server
 systemctl start scylla-server
