@@ -11,7 +11,7 @@ resource "oci_core_security_list" "security_list" {
 
   egress_security_rules = [
     {
-      protocol    = "${local.tcp_protocol}"
+      protocol    = "${local.all_protocols}"
       destination = "${local.anywhere}"
     },
   ]
@@ -40,4 +40,5 @@ resource "oci_core_security_list" "security_list" {
       min = "9042"
     }
   }
+
 }
