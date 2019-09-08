@@ -1,8 +1,3 @@
-locals {
-  # Used locally to determine the correct platform image. Shape names always
-  # start with either 'VM.'/'BM.' and all GPU shapes have 'GPU' as the next characters
-  shape_type = "${lower(substr(var.shape,3,3))}"
-}
 
 resource "oci_core_instance" "node" {
   display_name        = "scylladb-node-${count.index}"
@@ -13,7 +8,7 @@ resource "oci_core_instance" "node" {
   subnet_id           = "${oci_core_subnet.subnet.id}"
 
   source_details {
-    source_id   = "${local.shape_type == "gpu" ? var.images["${var.region}-gpu"] : var.images[var.region]}"
+    source_id   = "${var.images[var.region]}"
     source_type = "image"
   }
 
@@ -34,14 +29,11 @@ resource "oci_core_instance" "node" {
   }
 
   extended_metadata {
-    license_key = "${var.license_key}"
-
     config = "${jsonencode(map(
       "shape", var.shape,
       "disk_count", var.disk_count,
       "disk_size", var.disk_size,
-      "node_count", var.node_count,
-      "license_key", var.license_key
+      "node_count", var.node_count
     ))}"
   }
 

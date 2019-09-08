@@ -23,11 +23,6 @@ variable "ssh_private_key" {}
 # The defaults here will give you a cluster.  You can also modify these.
 # ---------------------------------------------------------------------------------------------------------------------
 
-variable "license_key" {
-  type    = "string"
-  default = ""
-}
-
 variable "shape" {
   default     = "VM.Standard2.4"
   description = "Instance shape to deploy for each node."
