@@ -26,27 +26,11 @@ resource "oci_core_route_table" "route_table" {
   }
 }
 
-resource "oci_core_security_list" "security_list" {
-  display_name   = "security_list"
-  compartment_id = "${var.compartment_ocid}"
-  vcn_id         = "${oci_core_virtual_network.virtual_network.id}"
-
-  egress_security_rules = [{
-    protocol    = "All"
-    destination = "0.0.0.0/0"
-  }]
-
-  ingress_security_rules = [{
-    protocol = "All"
-    source   = "0.0.0.0/0"
-  }]
-}
-
 resource "oci_core_subnet" "subnet" {
   display_name        = "subnet"
   compartment_id      = "${var.compartment_ocid}"
   availability_domain = "${lookup(data.oci_identity_availability_domains.availability_domains.availability_domains[var.ad_number],"name")}"
-  cidr_block          = "10.0.0.0/16"
+  cidr_block          = "10.0.1.0/24"
   vcn_id              = "${oci_core_virtual_network.virtual_network.id}"
   route_table_id      = "${oci_core_route_table.route_table.id}"
   security_list_ids   = ["${oci_core_security_list.security_list.id}"]
