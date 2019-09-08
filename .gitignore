@@ -9,3 +9,6 @@
 *.tfvars
 
 *scratch*
+
+# packaged template zips
+util/*.zip
