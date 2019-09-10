@@ -67,7 +67,7 @@ fi
 
 nic=$(ip link show | awk -F":" '/ens/ { print $2 }' | tr -d ' ')
 
-if [ -z "$disk"]; then
+if [ -z "$disks"]; then
   echo "No block or nvme disks"
   echo "Call scylla_setup with nic: $nic and --no-raid-setup"
   scylla_setup \
