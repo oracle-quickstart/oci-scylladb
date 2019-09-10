@@ -59,13 +59,18 @@ if [ $diskCount -gt 0 ]; then
   echo "Block devices found: $disks"
 fi
 
-if [[ $shape == *"Dense"* ]]; then
-  echo "Running on Dense shape, ignoring any block volumes for local NVME..."
+if [[ $shape == *"Dense"* ]] || [[ $shape == *"HPC"* ]]; then
+  echo "Running on Dense/HPC shape, ignoring any block volumes for local NVME..."
   disks=$(ls /dev/nvme*n1)
   echo "NVME found: $disks"
 fi
 
 nic=$(ip link show | awk -F":" '/ens/ { print $2 }' | tr -d ' ')
+#overide nic value for HPC shape
+if [[ $shape == *"HPC"* ]]; then
+  nic=$(ip link show | awk -F":" '/eno2/ { print $2 }' | tr -d ' ')
+  echo "HPC shape ussing nic: $nic"
+fi
 
 if [ -z "$disks"]; then
   echo "No block or nvme disks"
