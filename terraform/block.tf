@@ -1,6 +1,6 @@
 resource "oci_core_volume" "NodeVolume" {
   count               = "${var.node_count * var.disk_count}"
-  availability_domain = "${lookup(data.oci_identity_availability_domains.availability_domains.availability_domains[var.ad_number],"name")}"
+  availability_domain = "${local.ad}"
   compartment_id      = "${var.compartment_ocid}"
   display_name        = "node-${count.index % var.node_count}-volume${floor(count.index / var.node_count)}"
   size_in_gbs         = "${var.disk_size}"
