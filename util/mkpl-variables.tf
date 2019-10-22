@@ -3,27 +3,37 @@
 # ---------------------------------------------------------------------------------------------------------------------
 
 variable "mp_listing_id" {
-  default = ""
+  default = "ocid1.appcataloglisting.oc1..aaaaaaaadiac3nglcrwfadxgnnqk3kedu73sigacpeibvmsyy2tr3it5x2gq"
 }
+
 variable "mp_listing_resource_id" {
-  default = ""
+  default = "ocid1.image.oc1..aaaaaaaagxifvo6c2yvximfkyjippelig5jptmuo5wybo6odyp7m3fajx7oa"
 }
+
 variable "mp_listing_resource_version" {
- default = ""
+  default = "1.0"
 }
 
 variable "use_marketplace_image" {
   default = true
 }
 
-variable "tenancy_ocid" {}
-variable "compartment_ocid" {}
-variable "region" {}
+variable "tenancy_ocid" {
+}
+
+variable "compartment_ocid" {
+}
+
+variable "region" {
+}
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Optional variables
 # The defaults here will give you a cluster.  You can also modify these.
 # ---------------------------------------------------------------------------------------------------------------------
+
+variable "ssh_public_key" {
+}
 
 variable "node_shape" {
   default     = "VM.Standard2.4"
@@ -35,9 +45,15 @@ variable "node_count" {
   description = "Number of nodes to deploy."
 }
 
+# Must be negative to be ignored to allow for schema.yaml/GUI selection of ad_name
 variable "ad_number" {
-  default     = 2
+  default     = -1
   description = "Which availability domain to deploy to depending on quota, zero based."
+}
+
+# Not used for normal terraform apply, added for ORM deployments.
+variable "ad_name" {
+  default = ""
 }
 
 variable "disk_size" {
@@ -50,7 +66,6 @@ variable "disk_count" {
   description = "Number of disks to create for each node. Multiple disks will create a RAID0 array."
 }
 
-
 # ---------------------------------------------------------------------------------------------------------------------
 # Constants
 # You probably don't need to change these.
@@ -58,7 +73,7 @@ variable "disk_count" {
 
 # Unused in a mkpl deployment
 variable "platform-images" {
-  type = "map"
+  type = map(string)
 
   default = {
     ap-seoul-1     = "ocid1.image.oc1.ap-seoul-1.aaaaaaaalhbuvdg453ddyhvnbk4jsrw546zslcfyl7vl4oxfgplss3ovlm4q"

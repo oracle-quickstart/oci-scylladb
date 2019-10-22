@@ -54,9 +54,10 @@ variables:
 
   node_count:
     title: "Number of ScyllaDB nodes"
-    description: "Instances will be distributed sequentially between fault domains available in the region."
+    description: "Instances will be distributed sequentially between fault domains available in the region, min 3."
     type: integer
     default: 6
+    minimum: 3
     required: true
 
   disk_count:
@@ -64,13 +65,15 @@ variables:
     description: "Number of block volumes for each node, if >1 disks will form a RAID0 array. Local NVME will be prefered (and block unused) if available."
     type: integer
     default: 1
+    minimum: 0
     required: true
 
   disk_size:
     title: "Block volume size"
-    description: "Size in GB for block volumes attached to nodes,min 50."
+    description: "Size in GB for block volumes attached to nodes, min 50."
     type: integer
     default: 500
+    minimum: 50
     required: true
 
 

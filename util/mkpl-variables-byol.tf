@@ -5,27 +5,35 @@
 variable "mp_listing_id" {
   default = "ocid1.appcataloglisting.oc1..aaaaaaaa22bdx7mhjeufwilfy5q3p3w4frkp24p5whuiaypxw4gxf2mw3ehq"
 }
+
 variable "mp_listing_resource_id" {
   default = "ocid1.image.oc1..aaaaaaaar24gq5efr23vmsf5zayf6lcys4ggegg3xbat3htpoubyprmre7ra"
 }
+
 variable "mp_listing_resource_version" {
- default = "1.0"
+  default = "1.0"
 }
 
 variable "use_marketplace_image" {
   default = true
 }
 
-variable "tenancy_ocid" {}
-variable "compartment_ocid" {}
-variable "region" {}
+variable "tenancy_ocid" {
+}
+
+variable "compartment_ocid" {
+}
+
+variable "region" {
+}
 
 # ---------------------------------------------------------------------------------------------------------------------
 # Optional variables
 # The defaults here will give you a cluster.  You can also modify these.
 # ---------------------------------------------------------------------------------------------------------------------
 
-variable "ssh_public_key" {}
+variable "ssh_public_key" {
+}
 
 variable "node_shape" {
   default     = "VM.Standard2.4"
@@ -39,7 +47,7 @@ variable "node_count" {
 
 # Must be negative to be ignored to allow for schema.yaml/GUI selection of ad_name
 variable "ad_number" {
-  default = -1
+  default     = -1
   description = "Which availability domain to deploy to depending on quota, zero based."
 }
 
@@ -58,7 +66,6 @@ variable "disk_count" {
   description = "Number of disks to create for each node. Multiple disks will create a RAID0 array."
 }
 
-
 # ---------------------------------------------------------------------------------------------------------------------
 # Constants
 # You probably don't need to change these.
@@ -66,7 +73,7 @@ variable "disk_count" {
 
 # Unused in a mkpl deployment
 variable "platform-images" {
-  type = "map"
+  type = map(string)
 
   default = {
     ap-seoul-1     = "ocid1.image.oc1.ap-seoul-1.aaaaaaaalhbuvdg453ddyhvnbk4jsrw546zslcfyl7vl4oxfgplss3ovlm4q"
