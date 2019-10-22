@@ -1,5 +1,4 @@
-# oci-quickstart-scylladb
-
+# oci-scylladb
 This is a Terraform module that deploys [ScyllaDB](https://www.scylladb.com/) on [Oracle Cloud Infrastructure (OCI)](https://cloud.oracle.com/en_US/cloud-infrastructure).  It is developed jointly by Oracle and ScyllaDB.
 
 ## Prerequisites
