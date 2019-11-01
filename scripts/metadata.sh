@@ -11,6 +11,9 @@ json=$(curl -sSL http://169.254.169.254/opc/v1/instance/)
 shape=$(echo $json | jq -r .shape)
 faultdomain=$(echo $json | jq -r .faultDomain)
 
+# pw for user 'cassandra' will be set to instance ocid of node-0
+newpw=$(echo $json | jq -r .id)
+
 echo "$public_ip $private_ip $shape $faultdomain"
 
 echo $json | jq $CONFIG_LOCATION

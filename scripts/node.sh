@@ -44,7 +44,9 @@ sed -e "s/listen_address:.*/listen_address: $private_ip/g" | \
 sed -e "s/# broadcast_address:.*/broadcast_address: $private_ip/g" | \
 sed -e "s/rpc_address:.*/rpc_address: 0.0.0.0/g" | \
 sed -e "s/# broadcast_rpc_address:.*/broadcast_rpc_address: $public_ip/g" | \
-sed -e "s/endpoint_snitch:.*/endpoint_snitch: GossipingPropertyFileSnitch/g" > $CONF.new
+sed -e "s/endpoint_snitch:.*/endpoint_snitch: GossipingPropertyFileSnitch/g" | \
+sed -e "s/# authenticator:.*/authenticator: PasswordAuthenticator/g" | \
+sed -e "s/# authorizer:.*/authorizer: CassandraAuthorizer/g" > $CONF.new
 mv $CONF.new $CONF
 
 echo "Setup $RACKDC ..."
@@ -93,3 +95,14 @@ fi
 echo "Enable and start scylla-server..."
 systemctl enable scylla-server
 systemctl start scylla-server
+
+sleep 30s
+nodetool status
+
+if [ $(hostname) == "scylladb-node-0" ]
+then
+  echo "Calling pw change on scylladb-node-0..."
+  cqlsh -u cassandra -p cassandra -e "ALTER USER cassandra WITH PASSWORD '$newpw';"
+else
+  echo "Not node-0, finished"
+fi
