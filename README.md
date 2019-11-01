@@ -51,9 +51,13 @@ You'll need to enter `yes` when prompted.  The apply should take a few minutes t
 ## Access the Cluster
 When the apply is complete, the infrastructure will be deployed, but cloud-init scripts will still be running.  Those will wrap up asynchronously.  So, it'll be a few more minutes before your cluster is accessible.
 
-The output of `terraform apply` gives you the IPs of all nodes. If you ssh into one of the nodes, you can run `nodetool status` to see the state of all cluster nodes or `cqlsh` to execute CQL commands:
+The output of `terraform apply` gives you the IPs of all nodes. If you ssh into one of the nodes, you can run `nodetool status` to see the state of all cluster nodes or `cqlsh` to execute CQL commands. Authentication and authorization are enabled on the cluster.
+
+The password of the default user `cassandra` is set to the instance ocid of `node[0]` or hostname `scylladb-node-0`, which has the first IP in the list of IPs in the terraform output. This value is retrievable from the terraform logs, console, or the metadata server on that instance. For example you can ssh into `scylladb-node-0` and run the command `cqlsh -u cassandra -p $(curl -sSL http://169.254.169.254/opc/v1/instance/ | jq -r .id)` as shown below.  
 
 ![](./images/05-ssh.png)
+
+You can change this password or create a new superuser and delete the `cassandra` user by following these [instructions](https://docs.scylladb.com/operating-scylla/security/authorization/).
 
 ## Destroy the Deployment
 When you no longer need the deployment, you can run this command to destroy it:
