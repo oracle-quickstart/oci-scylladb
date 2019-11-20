@@ -8,8 +8,8 @@ First off you'll need to do some pre deploy setup.  That's all detailed [here](h
 Now, you'll want a local copy of this repo by running:
 
 ```
-git clone https://github.com/oracle/oci-quickstart-scylladb.git
-cd oci-quickstart-scylladb/terraform/
+git clone https://github.com/oracle-quickstart/oci-scylladb.git
+cd oci-scylladb/terraform/
 ls
 ```
 
