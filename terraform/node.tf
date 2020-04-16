@@ -6,8 +6,7 @@ locals {
 
   # Logic to choose platform or mkpl image based on
   # var.marketplace_image being empty or not
-  platform_image = var.platform-images[var.region]
-  image          = var.mp_listing_resource_id == "" ? local.platform_image : var.mp_listing_resource_id
+  image          = var.mp_listing_resource_id
 }
 
 resource "oci_core_instance" "node" {
