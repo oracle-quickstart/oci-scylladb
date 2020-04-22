@@ -96,7 +96,7 @@ echo "Enable and start scylla-server..."
 systemctl enable scylla-server
 systemctl start scylla-server
 
-sleep 30s
+sleep 60s
 nodetool status
 
 if [ $(hostname) == "scylladb-node-0" ]

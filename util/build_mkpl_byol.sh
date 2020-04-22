@@ -7,11 +7,13 @@
 
 out_file="mkpl_byol.zip"
 schema="mkpl-schema.yaml"
-variables="mkpl-variables-byol.tf"
 
 echo "TEST cleanup"
 rm -rf ./tmp_package
 rm $out_file
+
+# set after cleanup, since failure of that rm is ok
+set -euo
 
 echo "Creating tmp dir...."
 mkdir ./tmp_package
@@ -23,13 +25,10 @@ cp -rv ../scripts ./tmp_package
 
 echo "Removing provider.tf...."
 rm ./tmp_package/provider.tf
-echo "Removing variables.tf...."
-rm ./tmp_package/variables.tf
 
 echo "Adding $schema..."
 cp $schema ./tmp_package
-echo "Adding $variables..."
-cp $variables ./tmp_package
+
 #echo "Adding all image_subscription*.tf..."
 #cp image_subscription*.tf ./tmp_package
 
