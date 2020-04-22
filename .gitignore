@@ -12,3 +12,6 @@
 
 # packaged template zips
 util/*.zip
+
+# cruft
+.DS_Store
