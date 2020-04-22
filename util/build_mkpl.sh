@@ -13,6 +13,9 @@ echo "TEST cleanup"
 rm -rf ./tmp_package
 rm $out_file
 
+# set after cleanup, since failure of that rm is ok
+set -euo
+
 echo "Creating tmp dir...."
 mkdir ./tmp_package
 
@@ -30,8 +33,6 @@ echo "Adding $schema..."
 cp $schema ./tmp_package
 echo "Adding $variables..."
 cp $variables ./tmp_package
-echo "Adding all image_subscription*.tf..."
-cp image_subscription*.tf ./tmp_package
 
 # Required path change since schema.yaml forces working directory to be
 # root of .zip

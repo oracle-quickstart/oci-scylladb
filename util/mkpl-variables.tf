@@ -1,23 +1,10 @@
 # ---------------------------------------------------------------------------------------------------------------------
-# Marketplace variables
+# Environmental variables
+# You probably want to define these as environmental variables.
+# Instructions on that are here: https://github.com/cloud-partners/oci-prerequisites
 # ---------------------------------------------------------------------------------------------------------------------
 
-variable "mp_listing_id" {
-  default = "ocid1.appcataloglisting.oc1..aaaaaaaadiac3nglcrwfadxgnnqk3kedu73sigacpeibvmsyy2tr3it5x2gq"
-}
-
-variable "mp_listing_resource_id" {
-  default = "ocid1.image.oc1..aaaaaaaagxifvo6c2yvximfkyjippelig5jptmuo5wybo6odyp7m3fajx7oa"
-}
-
-variable "mp_listing_resource_version" {
-  default = "1.0"
-}
-
-variable "use_marketplace_image" {
-  default = true
-}
-
+# Required by the OCI Provider
 variable "tenancy_ocid" {
 }
 
@@ -27,13 +14,14 @@ variable "compartment_ocid" {
 variable "region" {
 }
 
+# Key used to SSH to OCI VMs
+variable "ssh_public_key" {
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # Optional variables
 # The defaults here will give you a cluster.  You can also modify these.
 # ---------------------------------------------------------------------------------------------------------------------
-
-variable "ssh_public_key" {
-}
 
 variable "node_shape" {
   default     = "VM.Standard2.4"
@@ -45,9 +33,9 @@ variable "node_count" {
   description = "Number of nodes to deploy."
 }
 
-# Must be negative to be ignored to allow for schema.yaml/GUI selection of ad_name
+# Ignored if ad_name non-empty
 variable "ad_number" {
-  default     = -1
+  default     = 1
   description = "Which availability domain to deploy to depending on quota, zero based."
 }
 
@@ -67,21 +55,34 @@ variable "disk_count" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# Constants
-# You probably don't need to change these.
+# Network variables
 # ---------------------------------------------------------------------------------------------------------------------
 
-# Unused in a mkpl deployment
-variable "platform-images" {
-  type = map(string)
+variable "vcn_display_name" {
+  default = "testVCN"
+}
 
-  default = {
-    ap-seoul-1     = "ocid1.image.oc1.ap-seoul-1.aaaaaaaalhbuvdg453ddyhvnbk4jsrw546zslcfyl7vl4oxfgplss3ovlm4q"
-    ap-tokyo-1     = "ocid1.image.oc1.ap-tokyo-1.aaaaaaaamc2244t7h3gwrrci5z4ni2jsulwcg76gugupkb6epzrypawcz4hq"
-    ca-toronto-1   = "ocid1.image.oc1.ca-toronto-1.aaaaaaaakjkxzw33dcocgu2oylpllue34tjtyngwru7pcpqn4qh2nwon7n7a"
-    eu-frankfurt-1 = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaandqh4s7a3oe3on6osdbwysgddwqwyghbx4t4ryvtcwk5xikkpvhq"
-    uk-london-1    = "ocid1.image.oc1.uk-london-1.aaaaaaaa2xe7cufdwkksdazshtmqaddgd72kdhiyoqurtoukjklktf4nxkbq"
-    us-ashburn-1   = "ocid1.image.oc1.iad.aaaaaaaa4bfsnhv2cd766tiw5oraw2as7g27upxzvu7ynqwipnqfcfwqskla"
-    us-phoenix-1   = "ocid1.image.oc1.phx.aaaaaaaavtjpvg4njutkeu7rf7c5lay6wdbjhd4cxis774h7isqd6gktqzoa"
-  }
+variable "vcn_cidr" {
+  default = "10.0.0.0/16"
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Marketplace variables
+# ---------------------------------------------------------------------------------------------------------------------
+
+
+variable "mp_listing_id" {
+  default = "ocid1.appcataloglisting.oc1..aaaaaaaadiac3nglcrwfadxgnnqk3kedu73sigacpeibvmsyy2tr3it5x2gq"
+}
+
+variable "mp_listing_resource_id" {
+  default = "ocid1.image.oc1..aaaaaaaagxifvo6c2yvximfkyjippelig5jptmuo5wybo6odyp7m3fajx7oa"
+}
+
+variable "mp_listing_resource_version" {
+  default = "1.0"
+}
+
+variable "use_marketplace_image" {
+  default = true
 }
