@@ -7,7 +7,7 @@
 
 out_file="mkpl.zip"
 schema="mkpl-schema.yaml"
-variables="mkpl-variables.tf"
+variables="image-variables-paid.tf"
 
 echo "TEST cleanup"
 rm -rf ./tmp_package
@@ -26,8 +26,8 @@ cp -rv ../scripts ./tmp_package
 
 echo "Removing provider.tf...."
 rm ./tmp_package/provider.tf
-echo "Removing variables.tf...."
-rm ./tmp_package/variables.tf
+echo "Removing image_variables.tf...."
+rm ./tmp_package/image_variables.tf
 
 echo "Adding $schema..."
 cp $schema ./tmp_package
