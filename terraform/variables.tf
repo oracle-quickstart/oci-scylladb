@@ -53,15 +53,3 @@ variable "disk_count" {
   default     = 0
   description = "Number of disks to create for each node. Multiple disks will create a RAID0 array."
 }
-
-# ---------------------------------------------------------------------------------------------------------------------
-# Network variables
-# ---------------------------------------------------------------------------------------------------------------------
-
-variable "vcn_display_name" {
-  default = "testVCN"
-}
-
-variable "vcn_cidr" {
-  default = "10.0.0.0/16"
-}
