@@ -1,12 +1,16 @@
 locals {
-  # If ad_number is non-negative use it for AD lookup, else use ad_name.
-  # Allows for use of ad_number in TF deploys, and ad_name in ORM.
-  # Use of max() prevents out of index lookup call.
-  ad = var.ad_number >= 0 ? data.oci_identity_availability_domains.availability_domains.availability_domains[max(0, var.ad_number)]["name"] : var.ad_name
+  # If availability_domain_name is non empty use it,
+  # otherwise use datasource and
+  ad = (var.ad_name != "" ? var.ad_name : data.oci_identity_availability_domain.ad.name)
 
   # Logic to choose platform or mkpl image based on
   # var.marketplace_image being empty or not
   image          = var.mp_listing_resource_id
+}
+
+data "oci_identity_availability_domain" "ad" {
+  compartment_id = var.tenancy_ocid
+  ad_number      = var.ad_number
 }
 
 resource "oci_core_instance" "node" {

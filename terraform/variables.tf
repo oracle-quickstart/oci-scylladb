@@ -11,23 +11,11 @@ variable "tenancy_ocid" {
 variable "compartment_ocid" {
 }
 
-variable "user_ocid" {
-}
-
-variable "fingerprint" {
-}
-
-variable "private_key_path" {
-}
-
 variable "region" {
 }
 
 # Key used to SSH to OCI VMs
 variable "ssh_public_key" {
-}
-
-variable "ssh_private_key" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -45,14 +33,20 @@ variable "node_count" {
   description = "Number of nodes to deploy."
 }
 
+# Ignored if ad_name non-empty
 variable "ad_number" {
-  default     = 0
+  default     = 1
   description = "Which availability domain to deploy to depending on quota, zero based."
+}
+
+# Not used for normal terraform apply, added for ORM deployments.
+variable "ad_name" {
+  default = ""
 }
 
 variable "disk_size" {
   default     = 500
-  description = "Size of block volume in GB for data, min 50."
+  description = "Size of block volume in GB for data, min 50. If set to 0 volume will not be created/mounted."
 }
 
 variable "disk_count" {
@@ -73,14 +67,9 @@ variable "vcn_cidr" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# Constants
-# You probably don't need to change these.
+# Marketplace variables
 # ---------------------------------------------------------------------------------------------------------------------
 
-# Not used for normal terraform apply, added for ORM deployments.
-variable "ad_name" {
-  default = ""
-}
 
 variable "mp_listing_id" {
   default = "ocid1.appcataloglisting.oc1..aaaaaaaa22bdx7mhjeufwilfy5q3p3w4frkp24p5whuiaypxw4gxf2mw3ehq"
@@ -97,10 +86,3 @@ variable "mp_listing_resource_version" {
 variable "use_marketplace_image" {
   default = true
 }
-
-# Both GPU and non-GPU platform images
-#
-# https://docs.cloud.oracle.com/iaas/images/image/85e2ad5a-3979-4ed2-8d99-9a10d79fa814/
-# Oracle-Linux-7.6-Gen2-GPU-2019.05.28-0
-# https://docs.cloud.oracle.com/iaas/images/image/6180a2cb-be6c-4c78-a69f-38f2714e6b3d/
-# Oracle-Linux-7.6-2019.05.28-0

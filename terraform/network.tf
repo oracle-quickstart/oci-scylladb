@@ -1,6 +1,3 @@
-data "oci_identity_availability_domains" "availability_domains" {
-  compartment_id = var.compartment_ocid
-}
 
 resource "oci_core_virtual_network" "virtual_network" {
   display_name   = "virtual_network"
@@ -36,4 +33,3 @@ resource "oci_core_subnet" "subnet" {
   dhcp_options_id   = oci_core_virtual_network.virtual_network.default_dhcp_options_id
   dns_label         = "scylladb"
 }
-
