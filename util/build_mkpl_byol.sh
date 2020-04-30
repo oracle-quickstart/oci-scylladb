@@ -10,7 +10,7 @@ schema="mkpl-schema.yaml"
 
 echo "TEST cleanup"
 rm -rf ./tmp_package
-rm $out_file
+rm -f $out_file
 
 # set after cleanup, since failure of that rm is ok
 set -euo
